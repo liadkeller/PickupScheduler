@@ -3,20 +3,18 @@ from csv_loadable import CSVLoadable
 class PassengersManager(CSVLoadable):
     def __init__(self, station_manager):
         self.station_manager = station_manager
-        self._passengers = {}
+        self.all_passengers = []
         self._csv_path = 'data/passengers.csv'
 
         self.load()
 
     def add(self, name, address, phone, *stations):
         city_to, city_back = self._fetch_stations(*stations)
+
         station_to = self.station_manager.get_to(city_to)
         station_back = self.station_manager.get_back(city_back)
 
-        self._passengers[name] = Passenger(name, address, phone, station_to, station_back)
-    
-    def get_passengers(self):
-        return list(self._passengers.values())
+        self.all_passengers.append(Passenger(name, address, phone, station_to, station_back))
 
     @staticmethod
     def _fetch_stations(*stations):

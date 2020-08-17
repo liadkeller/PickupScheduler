@@ -31,7 +31,7 @@ class TravelManager:
     def _get_stations_to_passengers_map(self):
         stations_to_passengers = {}
 
-        for passenger in self.passengers_manager.get_passengers():
+        for passenger in self.passengers_manager.all_passengers:
             if passenger.name in self.passengers:
                 station = passenger.get_station(self.is_sunday)
                 assert station, f"Station of {passenger.name} on {self.date} is not available (sunday={self.is_sunday})"
